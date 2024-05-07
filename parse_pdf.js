@@ -8,8 +8,7 @@ async function downloadPDFFromJSON() {
         if (!response.ok) {
             throw new Error('Ошибка при загрузке файла JSON: ' + response.statusText);
         }
-        const jsonData = await response.text();
-        const data = JSON.parse(jsonData);
+        const data = await response.json();
 
         let counter = 1; // Счётчик для добавления порядковых номеров к одинаковым именам файлов
         

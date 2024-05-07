@@ -1,10 +1,11 @@
 
-let manuals = document.querySelectorAll('a[data-event="download-documentation"]');
+// let manuals = document.querySelectorAll('a[data-event="download-documentation"]');
+let manuals = ['https://winterwarm.compano.com/Data/Environments/000001/Attachment/Bijlage/PRD/ProductGroupBrochure/Brochure%20WCU%20EN.pdf','https://winterwarm.compano.com/Data/Environments/000001/Attachment/Bijlage/PRD/ProductGroupManual/Manual%20WCU_EN.pdf']
 let name = document.querySelector('h1')
 function downloadPDF(array) {
 for (let url of array){
 let lastPart = url.href?.split("/")?.pop()?.replaceAll("%", "_");
-console.log(lastPart)
+
 const options = {
         method: 'GET',
         headers: {

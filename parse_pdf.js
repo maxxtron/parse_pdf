@@ -65,8 +65,9 @@ function downloadPDF(array) {
                 const a = document.createElement('a');
                 a.href = url;
                 a.download = lastPart;
-            })
-                window.URL.revokeObjectURL(url)
+                a.click();
+                window.URL.revokeObjectURL(url);
+            })                
             .catch(error => {
                 console.error('Ошибка при загрузке файла:', error);
             });

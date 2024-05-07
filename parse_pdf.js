@@ -1,19 +1,3 @@
-let manuals = [
-'https://winterwarm.compano.com/Data/Environments/000001/Attachment/Bijlage/PRD/ProductGroupManual/Manual%20WCU_EC_EN.pdf',
-'https://winterwarm.compano.com/Data/Environments/000001/Attachment/Bijlage/PRD/ProductGroupManual/Manual%20WCU_EC_EN.pdf',
-'https://winterwarm.compano.com/Data/Environments/000001/Attachment/Bijlage/PRD/ProductGroupManual/Manual%20WCU_EC_EN.pdf',
-'https://winterwarm.compano.com/Data/Environments/000001/Attachment/Bijlage/PRD/ProductGroupManual/Manual%20WCU_EC_EN.pdf',
-'https://winterwarm.compano.com/Data/Environments/000001/Attachment/Bijlage/PRD/ProductGroupBrochure/Brochure%20WCU%20EN.pdf',
-'https://winterwarm.compano.com/Data/Environments/000001/Attachment/Bijlage/PRD/ProductGroupManual/Manual%20WCU_EN.pdf',
-'https://winterwarm.compano.com/Data/Environments/000001/Attachment/Bijlage/PRD/ProductGroupBrochure/Brochure%20WCU%20EN.pdf',
-'https://winterwarm.compano.com/Data/Environments/000001/Attachment/Bijlage/PRD/ProductGroupManual/Manual%20WCU_EN.pdf',
-'https://winterwarm.compano.com/Data/Environments/000001/Attachment/Bijlage/PRD/ProductGroupBrochure/Brochure%20WCU%20EN.pdf',
-'https://winterwarm.compano.com/Data/Environments/000001/Attachment/Bijlage/PRD/ProductGroupManual/Manual%20WCU_EN.pdf',
-'https://winterwarm.compano.com/Data/Environments/000001/Attachment/Bijlage/PRD/ProductGroupBrochure/Brochure%20WCU%20EN.pdf',
-'https://winterwarm.compano.com/Data/Environments/000001/Attachment/Bijlage/PRD/ProductGroupManual/Manual%20WCU_EN.pdf',
-]
-
-
 
 async function downloadPDF(array) {
     const maxRetries = 3; // Максимальное количество попыток скачивания
@@ -66,4 +50,4 @@ async function downloadPDF(array) {
     }
 }
 
-downloadPDF(manuals);
+downloadPDF('urls.json');

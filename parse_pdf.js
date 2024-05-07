@@ -10,6 +10,10 @@ async function downloadPDFFromJSON() {
         }
         const data = await response.json();
 
+        if (!Array.isArray(data.urls)) {
+            throw new Error('Ошибка при загрузке файла JSON: data.urls не является массивом.');
+        }
+
         let counter = 1; // Счётчик для добавления порядковых номеров к одинаковым именам файлов
         
         for (let url of data.urls) {

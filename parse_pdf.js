@@ -1,15 +1,16 @@
 async function downloadPDFFromJSON() {
     const maxRetries = 3; // Максимальное количество попыток скачивания
     const retryDelay = 5000; // Задержка между попытками скачивания (в миллисекундах)
-    const jsonURL = 'https://parse-pdf.vercel.app/urls.json'; // URL вашего JSON файла на сервере Vercel
+    const jsonURL = '/urls.json'; // URL вашего JSON файла на сервере Vercel
 
     try {
         const response = await fetch(jsonURL);
         if (!response.ok) {
             throw new Error('Ошибка при загрузке файла JSON: ' + response.statusText);
         }
-        const data = await response.json();
-        
+        const jsonData = await response.text();
+        const data = JSON.parse(jsonData);
+
         let counter = 1; // Счётчик для добавления порядковых номеров к одинаковым именам файлов
         
         for (let url of data.urls) {

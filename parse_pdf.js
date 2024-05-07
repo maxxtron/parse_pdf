@@ -10,15 +10,15 @@ async function downloadPDFFromJSON() {
         }
         const data = await response.json();
 
-        console.log(data); // Выводим полученные данные в консоль для отладки
-
-        if (!Array.isArray(data.urls)) {
-            throw new Error('Ошибка при загрузке файла JSON: data.urls не является массивом.');
+        if (!Array.isArray(data)) {
+            throw new Error('Ошибка при загрузке файла JSON: данные не являются массивом.');
         }
+
+        let uniqueUrls = [...new Set(data)]; // Удаляем повторяющиеся URL-адреса
 
         let counter = 1; // Счётчик для добавления порядковых номеров к одинаковым именам файлов
         
-        for (let url of data.urls) {
+        for (let url of uniqueUrls) {
             let lastPart = url.split("/").pop().replaceAll("%", "_");
             console.log(url);
             

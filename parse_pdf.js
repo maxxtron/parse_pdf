@@ -3,9 +3,10 @@
 let manuals = ['https://winterwarm.compano.com/Data/Environments/000001/Attachment/Bijlage/PRD/ProductGroupBrochure/Brochure%20WCU%20EN.pdf','https://winterwarm.compano.com/Data/Environments/000001/Attachment/Bijlage/PRD/ProductGroupManual/Manual%20WCU_EN.pdf']
 let name = document.querySelector('h1')
 function downloadPDF(array) {
+    console.log(manuals)
 for (let url of array){
 let lastPart = url.href?.split("/")?.pop()?.replaceAll("%", "_");
-
+console.log(url)
 const options = {
         method: 'GET',
         headers: {

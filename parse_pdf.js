@@ -49,11 +49,17 @@ let manuals = ['https://winterwarm.compano.com/Data/Environments/000001/Attachme
 'https://winterwarm.compano.com/Data/Environments/000001/Attachment/Bijlage/PRD/ProductGroupManual/Manual%20QSE_EN.pdf']
 
 async function downloadPDF(array) {
+    const maxRetries = 3; // Максимальное количество попыток скачивания
+    const retryDelay = 5000; // Задержка между попытками скачивания (в миллисекундах)
+    
     for (let url of array) {
         let lastPart = url.split("/").pop().replaceAll("%", "_");
         console.log(url);
+        
+        let retryCount = 0;
         let downloaded = false;
-        while (!downloaded) {
+        
+        while (!downloaded && retryCount < maxRetries) {
             try {
                 const response = await fetch(url);
                 if (!response.ok) {
@@ -72,9 +78,13 @@ async function downloadPDF(array) {
                 downloaded = true;
             } catch (error) {
                 console.error(error);
-                // Пауза перед повторной попыткой скачивания
-                await new Promise(resolve => setTimeout(resolve, 5000)); // 5 секунд
+                retryCount++;
+                await new Promise(resolve => setTimeout(resolve, retryDelay));
             }
+        }
+        
+        if (!downloaded) {
+            console.error(`Не удалось скачать файл ${lastPart} после ${maxRetries} попыток.`);
         }
     }
 }

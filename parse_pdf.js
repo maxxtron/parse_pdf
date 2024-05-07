@@ -52,23 +52,29 @@ async function downloadPDF(array) {
     for (let url of array) {
         let lastPart = url.split("/").pop().replaceAll("%", "_");
         console.log(url);
-        try {
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new Error('Ошибка при загрузке файла: ' + response.statusText);
+        let downloaded = false;
+        while (!downloaded) {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error('Ошибка при загрузке файла: ' + response.statusText);
+                }
+                const blob = await response.blob();
+                const fileURL = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = fileURL;
+                a.download = lastPart;
+                a.style.display = 'none';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(fileURL);
+                document.body.removeChild(a);
+                downloaded = true;
+            } catch (error) {
+                console.error(error);
+                // Пауза перед повторной попыткой скачивания
+                await new Promise(resolve => setTimeout(resolve, 1000));
             }
-            const blob = await response.blob();
-            const fileURL = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = fileURL;
-            a.download = lastPart;
-            a.style.display = 'none';
-            document.body.appendChild(a);
-            a.click();
-            window.URL.revokeObjectURL(fileURL);
-            document.body.removeChild(a);
-        } catch (error) {
-            console.error(error);
         }
     }
 }

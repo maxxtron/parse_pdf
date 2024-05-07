@@ -48,29 +48,28 @@ let manuals = ['https://winterwarm.compano.com/Data/Environments/000001/Attachme
 'https://winterwarm.compano.com/Data/Environments/000001/Attachment/Bijlage/PRD/ProductGroupBrochure/Brochure%20Qwikshift%20EN.pdf', 
 'https://winterwarm.compano.com/Data/Environments/000001/Attachment/Bijlage/PRD/ProductGroupManual/Manual%20QSE_EN.pdf']
 
-function downloadPDF(array) {
+async function downloadPDF(array) {
     for (let url of array) {
         let lastPart = url.split("/").pop().replaceAll("%", "_");
         console.log(url);
-        const options = {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/pdf'
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('Ошибка при загрузке файла: ' + response.statusText);
             }
-        };
-        fetch(url)
-            .then(response => response.blob())
-            .then(blob => {
-                const url = window.URL.createObjectURL(new Blob([blob]));
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = lastPart;
-                a.click();
-                window.URL.revokeObjectURL(url);
-            })                
-            .catch(error => {
-                console.error('Ошибка при загрузке файла:', error);
-            });
+            const blob = await response.blob();
+            const fileURL = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = fileURL;
+            a.download = lastPart;
+            a.style.display = 'none';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(fileURL);
+            document.body.removeChild(a);
+        } catch (error) {
+            console.error(error);
+        }
     }
 }
 

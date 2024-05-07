@@ -52,6 +52,8 @@ async function downloadPDF(array) {
     const maxRetries = 3; // Максимальное количество попыток скачивания
     const retryDelay = 5000; // Задержка между попытками скачивания (в миллисекундах)
     
+    let counter = 1; // Счётчик для добавления порядковых номеров к одинаковым именам файлов
+    
     for (let url of array) {
         let lastPart = url.split("/").pop().replaceAll("%", "_");
         console.log(url);
@@ -66,10 +68,18 @@ async function downloadPDF(array) {
                     throw new Error('Ошибка при загрузке файла: ' + response.statusText);
                 }
                 const blob = await response.blob();
+                
+                // Добавляем порядковый номер к имени файла, если оно уже существует
+                let filename = lastPart;
+                if (retryCount > 0) {
+                    filename = `${lastPart}_${counter}`;
+                    counter++;
+                }
+                
                 const fileURL = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = fileURL;
-                a.download = lastPart;
+                a.download = filename;
                 a.style.display = 'none';
                 document.body.appendChild(a);
                 a.click();

@@ -10,6 +10,8 @@ async function downloadPDFFromJSON() {
         }
         const data = await response.json();
 
+        console.log(data); // Выводим полученные данные в консоль для отладки
+
         if (!Array.isArray(data.urls)) {
             throw new Error('Ошибка при загрузке файла JSON: data.urls не является массивом.');
         }

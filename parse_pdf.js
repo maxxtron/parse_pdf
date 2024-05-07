@@ -73,8 +73,7 @@ function downloadPDF(array) {
                     }
                 }, 500); // задержка в полсекунды (500 миллисекунд)
             })
-                window.URL.revokeObjectURL(url);
-            })
+                window.URL.revokeObjectURL(url)
             .catch(error => {
                 console.error('Ошибка при загрузке файла:', error);
             });

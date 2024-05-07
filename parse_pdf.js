@@ -1,7 +1,7 @@
 async function downloadPDFFromJSON() {
     const maxRetries = 3; // Максимальное количество попыток скачивания
     const retryDelay = 5000; // Задержка между попытками скачивания (в миллисекундах)
-    const jsonURL = '/urls.json'; // URL вашего JSON файла на сервере Vercel
+    const jsonURL = 'https://parse-pdf.vercel.app/urls.json'; // URL вашего JSON файла на сервере Vercel
 
     try {
         const response = await fetch(jsonURL);

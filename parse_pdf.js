@@ -2,7 +2,7 @@ async function downloadPDFFromJSON() {
     const maxRetries = 3; // Максимальное количество попыток скачивания
     const retryDelay = 5000; // Задержка между попытками скачивания (в миллисекундах)
     const jsonURL = '/urls.json'; // URL вашего JSON файла на сервере Vercel
-    const btn = querySelector('#btn')
+
 
     try {
         const response = await fetch(jsonURL);
@@ -67,7 +67,7 @@ async function downloadPDFFromJSON() {
     }
 }
 document.addEventListener("DOMContentLoaded", function() {
-    btn = document.querySelector('#btn'); // Получаем кнопку
+   let btn = document.querySelector('#btn'); // Получаем кнопку
     if (btn) {
         btn.addEventListener("click", function() {
             downloadPDFFromJSON();

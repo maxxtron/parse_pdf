@@ -22,8 +22,51 @@
   opacity: 1;
   background-color: #0095B6;
 }
+
 img {
   margin-left: 5px;
   width: 20px;
   height: 20px;
+}
+
+.preloadingBlock_el {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150px;
+  height: 150px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+/* .preloadingBlock_el path {
+  fill: var(--accent);
+} */
+.preloadingBlock_el path:first-child {
+  fill: #ffffff;
+}
+.preloadingBlock_el svg {
+  animation: rotate 2s steps(12, end) infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.hide {
+  display:none;
+}
+
+.info {
+  font-family: 'Roboto', sans-serif;
+  font-size: 25px;
+  color: #016e86;
+  font-style: italic;
+  font-weight: 500; 
 }

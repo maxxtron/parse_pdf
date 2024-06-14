@@ -2,8 +2,9 @@ async function downloadPDFFromJSON() {
     const maxRetries = 3; // Максимальное количество попыток скачивания
     const retryDelay = 5000; // Задержка между попытками скачивания (в миллисекундах)
     const jsonURL = '/urls.json'; // URL вашего JSON файла на сервере Vercel
-        let status = document.querySelector('.preloadingBlock_el')
-        let statusText = document.querySelector('.preloadingBlock_el')
+        let status = document.querySelector('.preloader')
+        btn = document.querySelector('#btn');
+        icon = document.querySelector('img');
 
 
     try {
@@ -21,7 +22,8 @@ async function downloadPDFFromJSON() {
 
         let counter = 1; // Счётчик для добавления порядковых номеров к одинаковым именам файлов
          status.classList.remove('hide');
-         statusText.classList.remove('hide');
+         icon.classList.add('hide');
+         btn.innerHTML = "Downloading...";
         for (let url of uniqueUrls) {
             let lastPart = url.split("/").pop().replaceAll("%", "_");
             url = `https://www.munters.com/${url}`;
@@ -68,10 +70,10 @@ async function downloadPDFFromJSON() {
         console.error('Ошибка при загрузке файла JSON:', error);
     }
     status.classList.add('hide');
-    statusText.classList.add('hide');
+    icon.classList.remove('hide');
+    btn.innerHTML = 'Download';
 }
 document.addEventListener("DOMContentLoaded", function() {
-   let btn = document.querySelector('#btn'); // Получаем кнопку
     if (btn) {
         btn.addEventListener("click", function() {
             downloadPDFFromJSON();

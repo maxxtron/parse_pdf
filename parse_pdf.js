@@ -5,7 +5,7 @@ async function downloadPDFFromJSON() {
         let status = document.querySelector('.preloader')
         btn = document.querySelector('#btn');
         icon = document.querySelector('img');
-        info = document.querySelector('.info');choco install starship
+        info = document.querySelector('.info');
     try {
         const response = await fetch(jsonURL);
         if (!response.ok) {

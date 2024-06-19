@@ -24,7 +24,6 @@ async function downloadPDFFromJSON() {
          info.classList.remove('hide');
          icon.classList.add('hide');
          btn.innerHTML = "Downloading...";
-         info.innerHTML = `Downloading ${count} of ${uniqueUrls.length} files...`
         for (let [index,url] of uniqueUrls.entries()) {
             let lastPart = url.split("/").pop().replaceAll("%", "_");
             // url = `https://www.munters.com/${url}`;

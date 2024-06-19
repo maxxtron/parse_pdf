@@ -5,8 +5,7 @@ async function downloadPDFFromJSON() {
         let status = document.querySelector('.preloader')
         btn = document.querySelector('#btn');
         icon = document.querySelector('img');
-
-
+        info = document.querySelector('.info');
     try {
         const response = await fetch(jsonURL);
         if (!response.ok) {
@@ -22,14 +21,17 @@ async function downloadPDFFromJSON() {
 
         let counter = 1; // Счётчик для добавления порядковых номеров к одинаковым именам файлов
          status.classList.remove('hide');
+         info.classList.remove('hide');
          icon.classList.add('hide');
          btn.innerHTML = "Downloading...";
-        for (let url of uniqueUrls) {
+         info.innerHTML = `Downloading ${count} of ${uniqueUrls.length} files...`
+        for (let [index,url] of uniqueUrls.entries()) {
             let lastPart = url.split("/").pop().replaceAll("%", "_");
-            url = `https://www.munters.com/${url}`;
+            // url = `https://www.munters.com/${url}`;
+            info.innerHTML = `Downloading ${index} of ${uniqueUrls.length} files...`
+            count += index + 1
             let retryCount = 0;
             let downloaded = false;
-            
             while (!downloaded && retryCount < maxRetries) {
                 try {
                     const response = await fetch(url);
@@ -72,6 +74,7 @@ async function downloadPDFFromJSON() {
     status.classList.add('hide');
     icon.classList.remove('hide');
     btn.innerHTML = 'Download';
+    info.classList.add('hide');
 }
 document.addEventListener("DOMContentLoaded", function() {
     if (btn) {

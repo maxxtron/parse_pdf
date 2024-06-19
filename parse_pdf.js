@@ -29,7 +29,6 @@ async function downloadPDFFromJSON() {
             let lastPart = url.split("/").pop().replaceAll("%", "_");
             // url = `https://www.munters.com/${url}`;
             info.innerHTML = `Downloading ${index} of ${uniqueUrls.length} files...`
-            count += index + 1
             let retryCount = 0;
             let downloaded = false;
             while (!downloaded && retryCount < maxRetries) {
